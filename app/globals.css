@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+hyml,
+body,
+:root {
+    height: 100%;
+}
