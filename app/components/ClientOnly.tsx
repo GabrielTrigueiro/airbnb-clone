@@ -1,3 +1,4 @@
+'use client'
 //verificar se estamos usando server side rendering ou não
 
 import { useEffect, useState } from "react"
