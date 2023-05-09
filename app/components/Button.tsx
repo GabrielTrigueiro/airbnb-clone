@@ -34,7 +34,7 @@ const Button: React.FC<IButtonProps> = ({label, onClick, disabled, icon: Icon, o
     >
       {Icon && (
         <Icon
-          size={34}
+          size={24}
           className="
             absolute
             left-4

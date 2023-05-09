@@ -20,6 +20,7 @@ const Modal: React.FC<IModalProps> = ({actionLabel, onClose, onSubmit, body, dis
 
   const [showModal, setShowModal] = useState(isOpen);
 
+  //fecha o modal depois de 300mls
   const handleClose = useCallback(() => {
     if(disabled){
       return
@@ -170,6 +171,7 @@ const Modal: React.FC<IModalProps> = ({actionLabel, onClose, onSubmit, body, dis
                     onClick={handleSubmit}
                   />
                 </div>
+                {footer}
               </div>
             </div>
           </div>
