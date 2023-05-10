@@ -9,3 +9,41 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+//models
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId //todo User vai ter um id único
+  name String?
+  email String? @unique
+  emailVerified DateTime?
+  hashedPassword String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  favoriteId String[] @db.ObjectId
+
+  //relações com outros models
+  accounts Account[]
+  listings Listings[]
+  reservations Reservation[]
+}
+
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId //todo User vai ter um id único
+  userId String @db.ObjectId
+  type String
+  provider String
+  providerAccountId String
+  refresh_token String? @db.String
+  access_token String? @db.String
+  expires_at Int?
+  token_type String?
+  scope String?
+  id_token String? @db.String
+  session_state String?
+
+  //relações com outros models
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)//armazena o id do usuário nesse user Id
+
+  //para a conta é necessário a combinação de dois campos únicos
+  @@unique([provider, providerAccountId])
+}
