@@ -5,10 +5,12 @@ import Avatar from '../Avatar';
 import { useCallback, useState } from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
 
 const UserMenu = () => {
 
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -75,7 +77,7 @@ const UserMenu = () => {
                         <>
                             <MenuItem
                                 label='Login'
-                                onClick={() => {}}
+                                onClick={loginModal.onOpen}
                             />
                             <MenuItem
                                 label='Sign up'
