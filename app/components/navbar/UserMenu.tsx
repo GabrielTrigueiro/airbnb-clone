@@ -7,6 +7,7 @@ import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { User } from '@prisma/client';
+import { signOut } from 'next-auth/react';
 
 interface IUserMenuProps {
     currentUser?: User | null;
@@ -102,8 +103,8 @@ const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
                                     onClick={() => { }}
                                 />
                                 <MenuItem
-                                    label='Logouy'
-                                    onClick={() => { }}
+                                    label='Logout'
+                                    onClick={signOut}
                                 />
                             </>
                         ) :
