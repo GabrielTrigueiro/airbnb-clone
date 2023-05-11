@@ -10,6 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//@db.ObjectId é como se estivesse pegando o id do obj e colocando no campo do próprio objeto
+
 //models
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId //todo User vai ter um id único
@@ -23,12 +25,12 @@ model User {
 
   //relações com outros models
   accounts Account[]
-  listings Listings[]
+  listings Listing[]
   reservations Reservation[]
 }
 
 model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId //todo User vai ter um id único
+  id String @id @default(auto()) @map("_id") @db.ObjectId //toda conta vai ter um id único
   userId String @db.ObjectId
   type String
   provider String
@@ -47,3 +49,37 @@ model Account {
   //para a conta é necessário a combinação de dois campos únicos
   @@unique([provider, providerAccountId])
 }
+
+model Listing {
+  id String @id @default(auto()) @map("_id") @db.ObjectId //toda lista vai ter um id único
+  title String
+  description String
+  imageStc String //o path da imagem na url da nuvem vai ser uma string
+  createdAt DateTime @default(now())
+  category String
+  roomCount Int
+  bathroomCount Int
+  guestCount Int
+  locationValue String
+  price Int
+
+  //relações com outros models
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations Reservation[]
+}
+
+model Reservation{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  listingId String @db.ObjectId
+  startDate DateTime
+  endDate DateTime
+  totalPrice Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
+
+// Na modelagem de objetos na lib Prisma, a opção onDelete: Cascade significa que, quando um registro da tabela principal (tabela pai) for excluído, todas as linhas correspondentes em uma tabela secundária (tabela filho) também serão excluídas automaticamente.
