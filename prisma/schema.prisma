@@ -10,69 +10,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//@db.ObjectId é como se estivesse pegando o id do obj e colocando no campo do próprio objeto
-
-//models
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId //todo User vai ter um id único
-  name String?
-  email String? @unique
-  emailVerified DateTime?
-  hashedPassword String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  favoriteId String[] @db.ObjectId
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  image           String?
+  name            String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  hashedPassword  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  favoriteIds     String[] @db.ObjectId
 
-  //relações com outros models
   accounts Account[]
   listings Listing[]
   reservations Reservation[]
 }
 
 model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId //toda conta vai ter um id único
-  userId String @db.ObjectId
-  type String
-  provider String
-  providerAccountId String
-  refresh_token String? @db.String
-  access_token String? @db.String
-  expires_at Int?
-  token_type String?
-  scope String?
-  id_token String? @db.String
-  session_state String?
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String   @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.String
+  access_token       String?  @db.String
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.String
+  session_state      String?
 
-  //relações com outros models
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)//armazena o id do usuário nesse user Id
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  //para a conta é necessário a combinação de dois campos únicos
   @@unique([provider, providerAccountId])
 }
 
 model Listing {
-  id String @id @default(auto()) @map("_id") @db.ObjectId //toda lista vai ter um id único
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   description String
-  imageStc String //o path da imagem na url da nuvem vai ser uma string
+  imageSrc String
   createdAt DateTime @default(now())
-  category String
+  category  String
   roomCount Int
   bathroomCount Int
   guestCount Int
   locationValue String
+  userId String @db.ObjectId
   price Int
 
-  //relações com outros models
-  userId String @db.ObjectId
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations Reservation[]
 }
 
-model Reservation{
+model Reservation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
-  listingId String @db.ObjectId
+  listingId String @db.ObjectId  
   startDate DateTime
   endDate DateTime
   totalPrice Int
@@ -81,5 +75,3 @@ model Reservation{
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
-
-// Na modelagem de objetos na lib Prisma, a opção onDelete: Cascade significa que, quando um registro da tabela principal (tabela pai) for excluído, todas as linhas correspondentes em uma tabela secundária (tabela filho) também serão excluídas automaticamente.
