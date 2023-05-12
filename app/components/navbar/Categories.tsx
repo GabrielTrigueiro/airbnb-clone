@@ -1,5 +1,6 @@
-import Container from "../Container";
+'use client'
 
+import Container from "../Container";
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb"
 import { IoDiamond } from "react-icons/io5"
 import { BsSnow } from "react-icons/bs"

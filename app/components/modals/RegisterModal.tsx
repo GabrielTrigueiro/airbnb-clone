@@ -18,9 +18,11 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import { signIn } from "next-auth/react";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 const RegisterModal = () => {
 
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();//state que guarda o estado do modal de registro
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,6 +55,11 @@ const RegisterModal = () => {
         setIsLoading(false);
       })
   }
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  },[loginModal, registerModal])
 
   //body do modal de Registro
   const bodyContent = (
@@ -116,9 +123,9 @@ const RegisterModal = () => {
         <div className="justify-center flex flex-row items-center gap-1">
           <div>
             Already have an account?
-          </div>;
+          </div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="
               text-neutral-800
               cursor-pointer
