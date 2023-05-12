@@ -6,15 +6,13 @@ import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 import { SafeUser } from "@/app/types";
+import Categories from "./Categories";
 
 interface INavBarProps {
   currentUser?: SafeUser | null;
 }
 
-const Navbar: React.FC<INavBarProps> = ({currentUser}) => {
-
-  console.log({currentUser})
-  
+const Navbar: React.FC<INavBarProps> = ({currentUser}) => {  
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
         <div className="py-4 border-b-[1px]">
@@ -33,6 +31,7 @@ const Navbar: React.FC<INavBarProps> = ({currentUser}) => {
                 </div>
             </Container>
         </div>
+        <Categories/>
     </div>
   )
 }
