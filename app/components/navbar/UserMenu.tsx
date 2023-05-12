@@ -1,14 +1,16 @@
 'use client';
 
 import { AiOutlineMenu } from 'react-icons/ai';
-import Avatar from '../Avatar';
 import { useCallback, useState } from 'react';
+import { signOut } from 'next-auth/react';
+
 import MenuItem from './MenuItem';
+import Avatar from '../Avatar';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
-import { User } from '@prisma/client';
-import { signOut } from 'next-auth/react';
+import useRentModal from '@/app/hooks/useRentModal';
 import { SafeUser } from '@/app/types';
+
 
 interface IUserMenuProps {
     currentUser?: SafeUser | null;
@@ -18,6 +20,7 @@ const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
 
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+    const rentModal = useRentModal();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -25,10 +28,18 @@ const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
         setIsOpen((value) => !value);
     }, []);
 
+    const onRent = useCallback(() => {
+        if(!currentUser){
+            return loginModal.onOpen(); //se não houver user logado abre o modal de login
+        }
+        rentModal.onOpen();
+    },[loginModal, currentUser, rentModal])
+
     return (
         <div className='relative'>
             <div className='flex flex-row items-center gap-3'>
                 <div
+                    onClick={onRent}
                     className='
                     hidden
                     md:block
@@ -101,7 +112,7 @@ const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
                                 />
                                 <MenuItem
                                     label='Airbnb my home'
-                                    onClick={() => { }}
+                                    onClick={rentModal.onOpen}
                                 />
                                 <MenuItem
                                     label='Logout'
