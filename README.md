@@ -34,11 +34,12 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 <h1>Airbnb clone</h1>
-<p>Este grande projeto Full Stack é um clone do grande site Airbnb, feito apartir de um excelente curso com objetivo de aprendizado de uma enorme gama de conhecimentos como, bilbiotecas, conceitos, ferramentas, raciocínio lógico, bancos de dados, frameworks, etc...</p>
+<p>Este projeto Full Stack que se utiliza do Next.js 13 Router, React, Tailwind, Prisma, MongoDB e Next Auth é um clone do grande site Airbnb, feito apartir de um excelente curso com objetivo de aprendizado de uma enorme gama de conhecimentos como, bilbiotecas, conceitos, ferramentas, raciocínio lógico, bancos de dados, frameworks, etc...</p>
 <p>O projeto até agora conta com as seguintes freatures:</p>
 <ul>
   <li>Design com Tailwind</li>
   <li>Animações com Tailwind</li>
+  <li>Schema com Prisma</li>
   <li>Responsividade</li>
   <li>Autenticação</li>
   <li>Autenticação com google</li>
