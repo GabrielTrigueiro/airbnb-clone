@@ -5,9 +5,10 @@ import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import { safeUser } from "@/app/types";
 
 interface INavBarProps {
-  currentUser?: User | null;
+  currentUser?: safeUser | null;
 }
 
 const Navbar: React.FC<INavBarProps> = ({currentUser}) => {
