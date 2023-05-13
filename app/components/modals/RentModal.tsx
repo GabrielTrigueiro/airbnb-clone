@@ -2,21 +2,22 @@
 
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import {useMemo, useState} from "react";
 import Heading from "../Heading";
-import { categories } from "../navbar/Categories";
+import {categories} from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
-import { FieldValues, useForm } from "react-hook-form";
+import {FieldValues, useForm} from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
+import Counter from "../inputs/Counter";
 
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
   INFO = 2,
   IMAGES = 3,
-  DESCRIPTION  = 4,
-  PRICE = 5 ,
+  DESCRIPTION = 4,
+  PRICE = 5,
 }
 
 const RentModal = () => {
@@ -29,12 +30,12 @@ const RentModal = () => {
     handleSubmit,
     setValue,
     watch,
-    formState:{
+    formState: {
       errors,
     },
     reset
   } = useForm<FieldValues>({
-    defaultValues:{
+    defaultValues: {
       category: '',
       location: null,
       guestCount: 1,
@@ -48,11 +49,14 @@ const RentModal = () => {
 
   const category = watch('category');
   const location = watch('location');
+  const guestCount = watch('guestCount');
+  const roomCount = watch('roomCount');
+  const bathroomCount = watch('bathroomCount');
 
   //única maneira de renderizar o mapa dinamicamente
   const Map = useMemo(() => dynamic(() => import('../Map'), {
     ssr: false
-  }),[location])
+  }), [location])
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -63,26 +67,26 @@ const RentModal = () => {
   }
 
   const onBack = () => {
-    setStep((value) => value -1)
+    setStep((value) => value - 1)
   };
 
   const onNext = () => {
-    setStep((value) => value +1)
+    setStep((value) => value + 1)
   };
 
   const actionLabel = useMemo(() => {
-    if(step === STEPS.PRICE){
+    if (step === STEPS.PRICE) {
       return 'create';
     }
     return 'Next'
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
-    if(step === STEPS.CATEGORY){
+    if (step === STEPS.CATEGORY) {
       return undefined;
     }
     return 'Back'
-  },[step]);
+  }, [step]);
 
   //let foi usado pois é uma tela que irá mudar de acordo com o passo que o usuário está
   let bodyContent = (
@@ -104,18 +108,18 @@ const RentModal = () => {
         {categories.map((item) => (
           <div key={item.label}>
             <CategoryInput
-              icon={item.icon}            
+              icon={item.icon}
               label={item.label}
               onClick={(category) => setCustomValue('category', category)}//pega o valor do label e seta no campo
               selected={category === item.label}
-            />    
+            />
           </div>
         ))}
       </div>
     </div>
   )
 
-  if (step === STEPS.LOCATION){
+  if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
@@ -128,6 +132,35 @@ const RentModal = () => {
         />
         <Map
           center={location?.latlng}
+        />
+      </div>
+    )
+  }
+
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share some basics about your place"
+          subtitle="What amenities do you have"
+        />
+        <Counter
+          title="Guests"
+          subtitle="How many guests do you allow?"
+          value={guestCount}
+          onChange={(value) => setCustomValue('guestCount', value)}
+        />
+        <Counter
+          title="Rooms"
+          subtitle="How many rooms do you have?"
+          value={roomCount}
+          onChange={(value) => setCustomValue('roomCount', value)}
+        />
+        <Counter
+          title="Bathrooms"
+          subtitle="How many bathrooms do you have?"
+          value={bathroomCount}
+          onChange={(value) => setCustomValue('bathroomCount', value)}
         />
       </div>
     )
@@ -146,5 +179,5 @@ const RentModal = () => {
     />
   );
 }
- 
+
 export default RentModal;
