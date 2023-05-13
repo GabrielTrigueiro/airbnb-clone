@@ -7,6 +7,7 @@ import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../inputs/CountrySelect";
 
 enum STEPS {
   CATEGORY = 0,
@@ -45,6 +46,7 @@ const RentModal = () => {
   });
 
   const category = watch('category');
+  const location = watch('location');
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -76,6 +78,7 @@ const RentModal = () => {
     return 'Back'
   },[step]);
 
+  //let foi usado pois é uma tela que irá mudar de acordo com o passo que o usuário está
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
@@ -106,11 +109,26 @@ const RentModal = () => {
     </div>
   )
 
+  if (step === STEPS.LOCATION){
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you! "
+        />
+        <CountrySelect
+          onChange={(value) => setCustomValue('location', value)}
+          value={location}
+        />
+      </div>
+    )
+  }
+
   return (
     <Modal
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onClose}
+      onSubmit={onNext}
       title="Airbnb your home"
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
