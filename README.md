@@ -41,7 +41,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   <li>Animações com Tailwind</li>
   <li>Schema com Prisma</li>
   <li>Responsividade</li>
-  <li>Autenticação</li>
+  <li>Autenticação com Next Auth</li>
   <li>Autenticação com google</li>
   <li>Autenticação com github</li>
+  <li>Passwords com bcrypt</li>
+  <li>Fetch api com axios</li>
+  <li>Mapas com leaflet</li>
+  <li>Upload de imagens com CLoudinary</li>
+  <li>Zustant</li>
+  <li>Query Strings</li>
+  <li>Mongo DB</li>
 </ul>
