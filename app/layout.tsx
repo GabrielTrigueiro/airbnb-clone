@@ -12,7 +12,7 @@ import LoginModal from './components/modals/LoginModal'
 import { Nunito } from 'next/font/google'
 
 //fonte
-const font = Nunito({subsets: ['latin']})
+const font = Nunito({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Airbnb',
@@ -31,13 +31,15 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
-          <ToasterProivider/>
-          <LoginModal/>
-          <RegisterModal/>
-          <RentModal/>
-          <Navbar currentUser={currentUser}/>
+          <ToasterProivider />
+          <LoginModal />
+          <RegisterModal />
+          <RentModal />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
-        {children}
+        <div className='pb-20 pt-28'>
+          {children}
+        </div>
       </body>
     </html>
   )
