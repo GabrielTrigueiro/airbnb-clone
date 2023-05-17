@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/app/libs/prismadb";
+import client from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { toast } from "react-hot-toast";
 
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   })
 
   //criando a lista
-  const listing = await prisma.listing.create({
+  const listing = await client.listing.create({
     data: {
       title,
       description,

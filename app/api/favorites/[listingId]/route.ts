@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import prisma from '@/app/libs/prismadb';
+import client from '@/app/libs/prismadb';
 
 interface IParams {
   listingId?: string;
@@ -35,7 +35,7 @@ export async function POST(
   favoriteIds.push(listingId);
 
   //atualiza user atual no banco de dados
-  const user = await prisma.user.update({
+  const user = await client.user.update({
     where: {
       id: currentUser.id
     },
@@ -68,7 +68,7 @@ export async function DELETE(
 
   favoriteIds = favoriteIds.filter((id) => id !== listingId);
 
-  const user = await prisma.user.update({
+  const user = await client.user.update({
     where: {
       id: currentUser.id
     },
