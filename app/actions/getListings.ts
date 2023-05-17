@@ -1,4 +1,4 @@
-import client from "@/app/libs/prismadb"
+import prisma from "@/app/libs/prismadb"
 
 export interface IListingsParams {
   userId?: string;
@@ -76,7 +76,7 @@ export default async function getListings(params: IListingsParams) {
       }
     }
 
-    const listings = await client.listing.findMany({
+    const listings = await prisma.listing.findMany({
       where: query,
       orderBy: {
         createdAt: "desc"
