@@ -17,7 +17,7 @@ interface IListingCardProps{
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser: SafeUser | null;
+  currentUser?: SafeUser | null;
 };
 
 const ListingCard: React.FC<IListingCardProps> = ({
@@ -116,7 +116,7 @@ const ListingCard: React.FC<IListingCardProps> = ({
           <Button
             disabled={disabled}
             small
-            label={actionId}
+            label={actionLabel}
             onClick={handleCancel}
           />
         )}

@@ -3,6 +3,7 @@
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useCallback, useState } from 'react';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 import MenuItem from './MenuItem';
 import Avatar from '../Avatar';
@@ -18,6 +19,7 @@ interface IUserMenuProps {
 
 const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
 
+    const router = useRouter();
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const rentModal = useRentModal();
@@ -29,11 +31,11 @@ const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
     }, []);
 
     const onRent = useCallback(() => {
-        if(!currentUser){
+        if (!currentUser) {
             return loginModal.onOpen(); //se não houver user logado abre o modal de login
         }
         rentModal.onOpen();
-    },[loginModal, currentUser, rentModal])
+    }, [loginModal, currentUser, rentModal])
 
     return (
         <div className='relative'>
@@ -72,7 +74,7 @@ const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
             '>
                     <AiOutlineMenu />
                     <div className='hidden md:block'>
-                        <Avatar src={currentUser?.image}/>
+                        <Avatar src={currentUser?.image} />
                     </div>
                 </div>
             </div>
@@ -96,7 +98,7 @@ const UserMenu: React.FC<IUserMenuProps> = ({ currentUser }) => {
                             <>
                                 <MenuItem
                                     label='My trips'
-                                    onClick={() => { }}
+                                    onClick={() => router.push('/trips')}
                                 />
                                 <MenuItem
                                     label='My favorites'
