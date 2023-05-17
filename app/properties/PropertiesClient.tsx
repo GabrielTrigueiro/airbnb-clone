@@ -59,7 +59,7 @@ const PropertiesClient: React.FC<IPropertiesClientProps> = ({listings,currentUse
             actionId={listing.id}
             onAction={onCancel}
             disabled={deletingId === listing.id}
-            actionLabel="Delete propertie"
+            actionLabel="Delete properties"
             currentUser={currentUser}
           />
         ))}
