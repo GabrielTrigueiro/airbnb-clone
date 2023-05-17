@@ -1,10 +1,18 @@
 'use client'
 
-import React from 'react'
-import {BiSearch} from 'react-icons/bi'
+import React from 'react';
+import { BiSearch } from 'react-icons/bi';
+
+import useSearchModal from '@/app/hooks/useSearchModal';
+
 const Search = () => {
+
+  const searchModal = useSearchModal();
+
   return (
-    <div className="
+    <div
+      onClick={searchModal.onOpen}
+      className="
         border-[1px]
         w-full
         md:w-auto
@@ -15,20 +23,20 @@ const Search = () => {
         transition
         cursor-pointer
     ">
-        <div className='
+      <div className='
             flex
             flex-row
             items-center
             justify-between
         '>
-            <div className='
+        <div className='
                 text-sm
                 font-semibold
                 px-6
             '>
-                Anywhere
-            </div>
-            <div className='
+          Anywhere
+        </div>
+        <div className='
                 text-sm
                 font-semibold
                 px-6
@@ -38,9 +46,9 @@ const Search = () => {
                 flex-1
                 text-center
             '>
-                Any week
-            </div>
-            <div className='
+          Any week
+        </div>
+        <div className='
                 text-sm
                 pl-6
                 pr-2
@@ -50,14 +58,14 @@ const Search = () => {
                 items-center
                 gap-3
             '>
-                <div className='hidden sm:block'>
-                    Add Guests
-                </div>
-                <div className='p-2 bg-rose-500 rounded-full text-white'>
-                    <BiSearch size={18}/>
-                </div>
-            </div>
+          <div className='hidden sm:block'>
+            Add Guests
+          </div>
+          <div className='p-2 bg-rose-500 rounded-full text-white'>
+            <BiSearch size={18} />
+          </div>
         </div>
+      </div>
     </div>
   )
 }
