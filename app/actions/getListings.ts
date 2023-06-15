@@ -11,18 +11,19 @@ export interface IListingsParams {
   category?: string;
 }
 
-export default async function getListings(params: IListingsParams) {
+export default async function getListings(
+  params: IListingsParams
+) {
   try {
-
     const {
-      bathroomCount,
-      category,
-      endDate,
-      guestCount,
-      locationValue,
-      roomCount,
-      startDate,
       userId,
+      roomCount, 
+      guestCount, 
+      bathroomCount, 
+      locationValue,
+      startDate,
+      endDate,
+      category,
     } = params;
 
     let query: any = {};
@@ -79,17 +80,16 @@ export default async function getListings(params: IListingsParams) {
     const listings = await prisma.listing.findMany({
       where: query,
       orderBy: {
-        createdAt: "desc"
+        createdAt: 'desc'
       }
     });
 
     const safeListings = listings.map((listing) => ({
       ...listing,
-      createdAt: listing.createdAt.toISOString()
+      createdAt: listing.createdAt.toISOString(),
     }));
 
     return safeListings;
-
   } catch (error: any) {
     throw new Error(error);
   }

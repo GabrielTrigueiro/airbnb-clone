@@ -1,51 +1,56 @@
-'use client'
+'use client';
 
+import qs from 'query-string';
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { IconType } from "react-icons/lib";
-import qs from 'query-string'
+import { IconType } from "react-icons";
 
-interface ICategoryBoxProps {
+interface CategoryBoxProps {
+  icon: IconType,
   label: string;
   selected?: boolean;
-  icon: IconType
 }
-const CategoryBox: React.FC<ICategoryBoxProps> = ({ selected, icon: Icon, label }) => {
-  
+
+const CategoryBox: React.FC<CategoryBoxProps> = ({
+  icon: Icon,
+  label,
+  selected,
+}) => {
   const router = useRouter();
   const params = useSearchParams();
 
   const handleClick = useCallback(() => {
-    let currentQuerry = {};
-    //params da url armazenados
-    if(params){
-      currentQuerry = qs.parse(params.toString());
+    let currentQuery = {};
+    
+    if (params) {
+      currentQuery = qs.parse(params.toString())
     }
-    //spread a query e adiciona a cateogoria com sua label
+
     const updatedQuery: any = {
-      ...currentQuerry,
+      ...currentQuery,
       category: label
     }
-    //checa se a nova categoria já está selecionada e remove da query atualizada
-    if(params?.get('category') === label){
+
+    if (params?.get('category') === label) {
       delete updatedQuery.category;
     }
-    //gera uma url onde passa o / e a nova querry
+
     const url = qs.stringifyUrl({
       url: '/',
       query: updatedQuery
-    }, {skipNull: true})
+    }, { skipNull: true });
+
     router.push(url);
-  }, [label, params, router])
-  
-  return (
+  }, [label, router, params]);
+
+  return ( 
     <div
       onClick={handleClick}
       className={`
-        flex
-        flex-col
-        items-center
-        justify-content
+        flex 
+        flex-col 
+        items-center 
+        justify-center 
         gap-2
         p-3
         border-b-2
@@ -56,12 +61,12 @@ const CategoryBox: React.FC<ICategoryBoxProps> = ({ selected, icon: Icon, label 
         ${selected ? 'text-neutral-800' : 'text-neutral-500'}
       `}
     >
-      <Icon size={26}/>
+      <Icon size={26} />
       <div className="font-medium text-sm">
         {label}
       </div>
     </div>
-  );
+   );
 }
-
+ 
 export default CategoryBox;

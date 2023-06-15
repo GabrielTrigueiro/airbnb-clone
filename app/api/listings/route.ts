@@ -1,53 +1,34 @@
 import { NextResponse } from "next/server";
-import prisma from "@/app/libs/prismadb";
+
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import { toast } from "react-hot-toast";
+import prisma from "@/app/libs/prismadb";
 
-export async function POST(request: Request) {
+interface IParams {
+  listingId?: string;
+}
 
+export async function DELETE(
+  request: Request, 
+  { params }: { params: IParams }
+) {
   const currentUser = await getCurrentUser();
 
-  //caso não haja usuário logado
-  if (!currentUser){
-    return toast.error('User not logged.')
+  if (!currentUser) {
+    return NextResponse.error();
   }
 
-  //extraindo o body da req
-  const body = await request.json();
-  //extraindo os campos necessários
-  const {
-    title,
-    description,
-    imageSrc,
-    category,
-    roomCount,
-    bathroomCount,
-    guestCount,
-    location,
-    price
-  } = body;
+  const { listingId } = params;
 
-  //checar se algum campo está faltando
-  Object.keys(body).forEach((value: any) => {
-    if(!body[value]){
-      return toast.error('Please fill all steps.')
-    }
-  })
+  if (!listingId || typeof listingId !== 'string') {
+    throw new Error('Invalid ID');
+  }
 
-  //criando a lista
-  const listing = await prisma.listing.create({
-    data: {
-      title,
-      description,
-      imageSrc,
-      category,
-      roomCount,
-      bathroomCount,
-      guestCount,
-      locationValue: location.value,
-      price: parseInt(price, 10),
+  const listing = await prisma.listing.deleteMany({
+    where: {
+      id: listingId,
       userId: currentUser.id
     }
-  })
+  });
+
   return NextResponse.json(listing);
 }
