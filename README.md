@@ -35,7 +35,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 <h1>Airbnb clone</h1>
 <p>Este projeto Full Stack que se utiliza do Next.js 13 Router, React, Tailwind, Prisma, MongoDB e Next Auth é um clone do grande site Airbnb, feito apartir de um excelente curso com objetivo de aprendizado de uma enorme gama de conhecimentos como, bibliotecas, conceitos, ferramentas, raciocínio lógico, bancos de dados, frameworks, etc...</p>
-<p>O projeto até agora conta com as seguintes freatures:</p>
+<p>O projeto conta com as seguintes tecnologias:</p>
 <ul>
   <li>Design com Tailwind</li>
   <li>Animações com Tailwind</li>
