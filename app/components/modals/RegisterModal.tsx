@@ -1,68 +1,66 @@
-'use client'
-
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { useCallback, useState } from "react";
-import {
-  FieldValues,
-  SubmitHandler,
-  useForm
-} from 'react-hook-form';
-
-import useRegisterModal from "app/hooks/useRegisterModal";
+'use client';
 
 import axios from "axios";
-import Modal from "./Modal";
-import Heading from "../Heading";
-import Input from "../inputs/Input";
-import { toast } from "react-hot-toast";
-import Button from "../Button";
+import { AiFillGithub } from "react-icons/ai";
 import { signIn } from "next-auth/react";
-import useLoginModal from "app/hooks/useLoginModal";
+import { FcGoogle } from "react-icons/fc";
+import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
+import { 
+  FieldValues, 
+  SubmitHandler,
+  useForm
+} from "react-hook-form";
 
-const RegisterModal = () => {
+import useLoginModal from "@/app/hooks/useLoginModal";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
+import Modal from "./Modal";
+import Input from "../inputs/Input";
+import Heading from "../Heading";
+import Button from "../Button";
+
+const RegisterModal= () => {
+  const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();//state que guarda o estado do modal de registro
   const [isLoading, setIsLoading] = useState(false);
 
-  //form object
-  const {
-    register,
+  const { 
+    register, 
     handleSubmit,
     formState: {
       errors,
-    }
+    },
   } = useForm<FieldValues>({
     defaultValues: {
       name: '',
-      password: '',
-      email: ''
-    }
-  })
+      email: '',
+      password: ''
+    },
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
     axios.post('/api/register', data)
-      .then(() => {
-        registerModal.onClose();
-        loginModal.onOpen();
-      })
-      .catch((error) => {
-        toast.error('Something went wrong.');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
+    .then(() => {
+      toast.success('Registered!');
+      registerModal.onClose();
+      loginModal.onOpen();
+    })
+    .catch((error) => {
+      toast.error(error);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    })
   }
 
-  const toggle = useCallback(() => {
+  const onToggle = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
-  },[loginModal, registerModal])
+  }, [registerModal, loginModal])
 
-  //body do modal de Registro
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
@@ -73,76 +71,70 @@ const RegisterModal = () => {
         id="email"
         label="Email"
         disabled={isLoading}
-        errors={errors}
         register={register}
+        errors={errors}
         required
       />
       <Input
         id="name"
         label="Name"
         disabled={isLoading}
-        errors={errors}
         register={register}
+        errors={errors}
         required
       />
       <Input
         id="password"
-        type="password"
         label="Password"
+        type="password"
         disabled={isLoading}
-        errors={errors}
         register={register}
+        errors={errors}
         required
       />
     </div>
-  );
+  )
 
-  //footer do modal de registro
   const footerContent = (
-    <div className="flex flex-col gap-5 mt-3">
+    <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
-        outline
+      <Button 
+        outline 
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn('google')}
+        onClick={() => signIn('google')} 
       />
-      <Button
-        outline
+      <Button 
+        outline 
         label="Continue with Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
-      <div
+      <div 
         className="
-            text-neutral-500
-            text-center
-            mt-4
-            font-light
-          "
+          text-neutral-500 
+          text-center 
+          mt-4 
+          font-light
+        "
       >
-        <div className="justify-center flex flex-row items-center gap-1">
-          <div>
-            Already have an account?
-          </div>
-          <div
-            onClick={toggle}
+        <p>Already have an account?
+          <span 
+            onClick={onToggle} 
             className="
               text-neutral-800
-              cursor-pointer
+              cursor-pointer 
               hover:underline
             "
-          >
-            Log in
-          </div>
-        </div>
+            > Log in</span>
+        </p>
       </div>
     </div>
-  );
+  )
 
   return (
     <Modal
-      disabled={isLoading}//o usuário não poderá alterar nada enquanto estiver carregando
+      disabled={isLoading}
       isOpen={registerModal.isOpen}
       title="Register"
       actionLabel="Continue"
@@ -151,7 +143,7 @@ const RegisterModal = () => {
       body={bodyContent}
       footer={footerContent}
     />
-  )
+  );
 }
 
-export default RegisterModal
+export default RegisterModal;

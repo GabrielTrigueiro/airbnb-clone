@@ -1,16 +1,21 @@
-'use client'
+'use client';
 
-import { IconType } from "react-icons/lib";
+import { IconType } from "react-icons";
 
-interface ICategoryInputProps {
-  onClick: (value: string) => void;
-  selected?: boolean;
+interface CategoryBoxProps {
+  icon: IconType,
   label: string;
-  icon: IconType;
+  selected?: boolean;
+  onClick: (value: string) => void;
 }
 
-const CategoryInput: React.FC<ICategoryInputProps> = ({ icon: Icon, label, onClick, selected }) => {
-  return (
+const CategoryBox: React.FC<CategoryBoxProps> = ({
+  icon: Icon,
+  label,
+  selected,
+  onClick
+}) => {
+  return ( 
     <div
       onClick={() => onClick(label)}
       className={`
@@ -23,7 +28,7 @@ const CategoryInput: React.FC<ICategoryInputProps> = ({ icon: Icon, label, onCli
         hover:border-black
         transition
         cursor-pointer
-        ${selected ? 'border-black' : 'border-neutral-200 '}     
+        ${selected ? 'border-black' : 'border-neutral-200'}
       `}
     >
       <Icon size={30} />
@@ -31,7 +36,7 @@ const CategoryInput: React.FC<ICategoryInputProps> = ({ icon: Icon, label, onCli
         {label}
       </div>
     </div>
-  );
+   );
 }
-
-export default CategoryInput;
+ 
+export default CategoryBox;

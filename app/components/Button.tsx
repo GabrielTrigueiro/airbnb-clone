@@ -1,21 +1,28 @@
-'use client'
+'use client';
 
-import { IconType } from "react-icons/lib";
+import { IconType } from "react-icons";
 
-interface IButtonProps {
+interface ButtonProps {
   label: string;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: React.FC<IButtonProps> = ({label, onClick, disabled, icon: Icon, outline, small}) => {
-  return (
+const Button: React.FC<ButtonProps> = ({ 
+  label, 
+  onClick, 
+  disabled, 
+  outline,
+  small,
+  icon: Icon,
+}) => {
+  return ( 
     <button
-      onClick={onClick}
       disabled={disabled}
+      onClick={onClick}
       className={`
         relative
         disabled:opacity-70
@@ -27,8 +34,8 @@ const Button: React.FC<IButtonProps> = ({label, onClick, disabled, icon: Icon, o
         ${outline ? 'bg-white' : 'bg-rose-500'}
         ${outline ? 'border-black' : 'border-rose-500'}
         ${outline ? 'text-black' : 'text-white'}
-        ${small ? 'py-1' : 'py-3'}
         ${small ? 'text-sm' : 'text-md'}
+        ${small ? 'py-1' : 'py-3'}
         ${small ? 'font-light' : 'font-semibold'}
         ${small ? 'border-[1px]' : 'border-2'}
       `}
@@ -45,7 +52,7 @@ const Button: React.FC<IButtonProps> = ({label, onClick, disabled, icon: Icon, o
       )}
       {label}
     </button>
-  )
+   );
 }
-
-export default Button
+ 
+export default Button;
