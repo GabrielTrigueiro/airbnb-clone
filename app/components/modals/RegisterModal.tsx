@@ -9,7 +9,7 @@ import {
   useForm
 } from 'react-hook-form';
 
-import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useRegisterModal from "app/hooks/useRegisterModal";
 
 import axios from "axios";
 import Modal from "./Modal";
@@ -18,7 +18,7 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import { signIn } from "next-auth/react";
-import useLoginModal from "@/app/hooks/useLoginModal";
+import useLoginModal from "app/hooks/useLoginModal";
 
 const RegisterModal = () => {
 

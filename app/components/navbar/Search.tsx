@@ -3,9 +3,9 @@
 import React, {useMemo} from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-import useSearchModal from '@/app/hooks/useSearchModal';
+import useSearchModal from 'app/hooks/useSearchModal';
 import { useSearchParams } from 'next/navigation';
-import useCountries from '@/app/hooks/useCountries';
+import useCountries from 'app/hooks/useCountries';
 import { differenceInDays } from 'date-fns';
 
 const Search = () => {

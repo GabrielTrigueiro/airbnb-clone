@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 
 import MenuItem from './MenuItem';
 import Avatar from '../Avatar';
-import useRegisterModal from '@/app/hooks/useRegisterModal';
-import useLoginModal from '@/app/hooks/useLoginModal';
-import useRentModal from '@/app/hooks/useRentModal';
-import { SafeUser } from '@/app/types';
+import useRegisterModal from 'app/hooks/useRegisterModal';
+import useLoginModal from 'app/hooks/useLoginModal';
+import useRentModal from 'app/hooks/useRentModal';
+import { SafeUser } from 'app/types';
 
 
 interface IUserMenuProps {

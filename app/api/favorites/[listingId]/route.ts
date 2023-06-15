@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import prisma from "@/app/libs/prismadb";
+import prisma from "app/libs/prismadb"
+import getCurrentUser from "app/actions/getCurrentUser";
 
 interface IParams {
   listingId?: string;
@@ -20,8 +20,6 @@ export async function POST(
 
   //armazenando o id vido da params
   const {listingId} = params;
-
-  console.log(listingId);
 
   //verificando se a lista possui um id e se tiver qual seu tipo
   if(!listingId || typeof listingId !== 'string'){

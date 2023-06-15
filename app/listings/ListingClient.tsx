@@ -5,10 +5,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Range } from "react-date-range";
 
-import Container from "@/app/components/Container";
-import ListingHead from "@/app/components/listing/ListingHead";
-import { categories } from "@/app/components/navbar/Categories";
-import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+import Container from "app/components/Container";
+import ListingHead from "app/components/listing/ListingHead";
+import { categories } from "app/components/navbar/Categories";
+import { SafeListing, SafeReservation, SafeUser } from "app/types";
 import ListingInfo from "./ListingInfo";
 import useLoginModal from "../hooks/useLoginModal";
 import axios from "axios";
