@@ -3,7 +3,7 @@ import './globals.css'
 import ClientOnly from './components/ClientOnly'
 import Navbar from './components/navbar/Navbar'
 import ToasterProivider from './providers/ToastProvider'
-import getCurrentUser from './actions/getCurrentUser'
+import getCurrentUser from './api/actions/getCurrentUser'
 
 import RegisterModal from './components/modals/RegisterModal'
 import RentModal from './components/modals/RentModal'

@@ -1,4 +1,4 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/app/api/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 
 export async function POST(
